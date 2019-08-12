@@ -16,3 +16,13 @@ func main() {
 	}
 }
 ```
+It will return the follows:
+```go
+one
+two
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [chan receive]:
+main.main()
+        C:/Users/value.go:11 +0x113
+```

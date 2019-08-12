@@ -1,4 +1,4 @@
-### some interesting problem  and fact I met when study the language of go
+### Some interesting problem and fact I met when studying the language of go
 ####  exit status 2 problem
 This kind of problem has happened many times. The reason is not clearly found yet. Here are some situations that the problem can happen.
 - When you try the example on the website of go example https://gobyexample.com/timers:

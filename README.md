@@ -2,3 +2,4 @@
 
 ### The channel contains:
 - survey on weak supervision 
+- the study material on Chai's project

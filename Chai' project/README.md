@@ -11,3 +11,5 @@
 	- Methods: https://gobyexample.com/methods
 	- Interfaces: https://gobyexample.com/interfaces
 	- Goroutines: https://gobyexample.com/goroutines
+#### some material about TiKV
+- DDIA study material: https://github.com/Vonng/DDIA

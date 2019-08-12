@@ -5,11 +5,5 @@
 - the original paper of raft algorithm is in the paper file, named "In search of an understandable consensus algorithm"
 #### study go language
 -  go by example: https://gobyexample.com/
-	- Variadic Functions: https://gobyexample.com/variadic-functions
-	- Closures: https://gobyexample.com/closures
-	- Structs: https://gobyexample.com/structs
-	- Methods: https://gobyexample.com/methods
-	- Interfaces: https://gobyexample.com/interfaces
-	- Goroutines: https://gobyexample.com/goroutines
 #### some material about TiKV
 - DDIA study material: https://github.com/Vonng/DDIA

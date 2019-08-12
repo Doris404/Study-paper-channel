@@ -55,6 +55,6 @@ fatal error: all goroutines are asleep - deadlock!
 
 goroutine 1 [chan receive]:
 main.main()
-        C:/Users/ÀîÏşÍ©/Desktop/value.go:27 +0x17c
+        C:/Users/value.go:27 +0x17c
 exit status 2
 ```

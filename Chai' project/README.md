@@ -7,5 +7,6 @@
 -  go by example: https://gobyexample.com/
 #### some material about TiKV
 - DDIA study material: https://github.com/Vonng/DDIA
+- blog of TiKV: https://pingcap.com/blog-cn/#TiKV
 #### pingcap pd github
 - https://github.com/pingcap/pd

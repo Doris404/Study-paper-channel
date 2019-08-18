@@ -1,6 +1,6 @@
 ### This is a note I keep when I am learning the language of go
 
-- go 可以获取系统类型例如
+#### go 可以获取系统类型例如
 ```go
 package main
 
@@ -23,7 +23,7 @@ The operating system is: windows
 ```
 同时也会得到路径
 
-- 子函数是否会更改变量值，请看以下三个例子
+#### 关于变量赋值问题，子函数中对一个变量进行赋值是否会改变外部变量的值
 ```go
 package main
 
@@ -100,3 +100,8 @@ GOG
 第二种的m函数中的变量a和外部的变量a是一个变量，因此在m函数内部改变a的值，到外部也有效
 
 第三种同第一种，在m函数内部重新定义的变量出了m函数失效
+
+#### strings 和 strconv包 
+
+> 来自 the way to go 4.7 https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/04.7.md
+

@@ -6,4 +6,4 @@
 
 #### Markov decision processes
 
-states s$\in$S
+states s$/in$S

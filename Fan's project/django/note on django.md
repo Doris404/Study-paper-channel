@@ -73,4 +73,26 @@ urlpatterns = [
     path('polls/',include('polls.urls')),
 ]
 ```
-可以看得到，我们用```path('polls/,include('polls.urls'))```来将
+可以看得到，我们用```path('polls/,include('polls.urls'))``来进行了网页连接的工作。
+
+我们再来看一下polls文件夹里的代码是怎样的。
+
+polls\urls.py
+```
+from django.urls import path
+from . import views 
+
+urlpatterns = [
+    path('',views.index,name = 'index'),#这里引用了views.py中的index函数
+]
+```
+polls\views.py
+```
+from django.shortcuts import render
+from django.http import HttpResponse
+
+# Create your views here.
+def index(request):
+    return HttpResponse("Hello, world. You are at the polls index.")
+```
+

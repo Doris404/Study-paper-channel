@@ -43,7 +43,7 @@ Migrations for 'polls':
 ```
 
 下面我们将利用这个模型制作第一个poll，在命令行运行
-```python
+```
 python manage.py sqlmigrate polls 0001
 ```
 我们将得到

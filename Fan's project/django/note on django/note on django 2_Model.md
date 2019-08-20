@@ -16,6 +16,7 @@
 **polls/models.py**中完成，我们将在其中完成模型的构造工作
 
 **polls/models.py**
+```python
 from django.db import models
 
 

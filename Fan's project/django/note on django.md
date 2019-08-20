@@ -1,4 +1,4 @@
-## django study note 
+## django study note 1: the first page
 
 #### 入门
 
@@ -14,7 +14,7 @@ mysite/
 	manage.py
 	mysite/
 		__init__.py
-		settings.py
+		settings.py#这个文件里可以更改主站应用的app，每当你加入新的应用时不要忘了改变这里
 		urls.py
 		wsgi.py
 ```
@@ -95,4 +95,5 @@ from django.http import HttpResponse
 def index(request):
     return HttpResponse("Hello, world. You are at the polls index.")
 ```
+到目前为止我们实现的仅仅是在django框架下将一个最简单的页面显示出来。
 

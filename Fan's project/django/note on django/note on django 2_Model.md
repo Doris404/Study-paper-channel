@@ -18,13 +18,9 @@
 **polls/models.py**
 ```python
 from django.db import models
-
-
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
-
-
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
@@ -60,10 +56,10 @@ CREATE TABLE "polls_choice" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "c
 CREATE INDEX "polls_choice_question_id_c5b4b260" ON "polls_choice" ("question_id");
 COMMIT;
 ```
-```python
-python manage.py migrate
 ```
-```python
+$ python manage.py migrate
+```
+```
 Operations to perform:
   Apply all migrations: admin, auth, contenttypes, polls, sessions
 Running migrations:

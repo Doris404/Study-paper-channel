@@ -32,7 +32,7 @@ class Choice(models.Model):
 ```
 然后我们在命令行中执行下面的代码，来让整个网站知道我们对polls的改变
 ```python 
-python manage.py makemigrations polls
+$ python manage.py makemigrations polls
 ```
 结果会是这个样子的
 ```
@@ -44,7 +44,7 @@ Migrations for 'polls':
 
 下面我们将利用这个模型制作第一个poll，在命令行运行
 ```
-python manage.py sqlmigrate polls 0001
+$ python manage.py sqlmigrate polls 0001
 ```
 我们将得到
 ```
@@ -73,8 +73,8 @@ Running migrations:
 
 改变模型需要以下三步：
 * 编辑model.py 改变模型
-* 命令行下运行**python manage.py makemigrations** 为模型的改变生成迁移文件
-* 命令行下运行**python manage.py migrate**来应用数据库迁移
+* 命令行下运行```python manage.py makemigrations``` 为模型的改变生成迁移文件
+* 命令行下运行```python manage.py migrate```来应用数据库迁移
 
 
 

@@ -1,3 +1,5 @@
+<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+
 ## Reinforcement Learning
 > 一些简单易懂的例子：https://www.zhihu.com/question/41775291
 * Markov decision processes

@@ -28,6 +28,8 @@ python manage.py startapp <your app's name>
 时已经自然有一个urls.py文件了，在生成一个新的应用时，我们同样需要在这个文件夹中设立
 一个新的urls.py。
 
+#### 第一个例子
+
 让我们来看以下第一个例子吧，在这个例子中我们的网站只有一个应用polls，因此我们的文件
 结构如下：
 ```python
@@ -65,7 +67,7 @@ manage.py
 ，并且views.py负责视图的效果，urls.py负责将这些网页连接到一起。下面我们来分别看一下这
 两个文件的内容是怎样的。
 
-** \mysite\urls.py **
+**\mysite\urls.py**
 ```python 
 from django.contrib import admin
 from django.urls import path,include
@@ -79,7 +81,7 @@ urlpatterns = [
 
 我们再来看一下polls文件夹里的代码是怎样的。
 
-** polls\urls.py **
+**polls\urls.py**
 ```
 from django.urls import path
 from . import views 
@@ -88,7 +90,7 @@ urlpatterns = [
     path('',views.index,name = 'index'),#这里引用了views.py中的index函数
 ]
 ```
-** polls\views.py **
+**polls\views.py**
 ```
 from django.shortcuts import render
 from django.http import HttpResponse

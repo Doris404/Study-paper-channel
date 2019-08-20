@@ -99,6 +99,14 @@ from django.http import HttpResponse
 def index(request):
     return HttpResponse("Hello, world. You are at the polls index.")
 ```
+
+**只进行上述的工作是不够的，还需要在正式运行之前在命令行中执行以下代码**
+```python
+python manage.py migrate
+```
+migrate命令会检查**mysite/settings.py**中**INSTALLED_APPS**的设置，当一个
+新的应用被定义出来，Django不会立即应用，需要使用这个语句来使得整个网站知道此事。
+
 到目前为止我们实现的仅仅是在django框架下将一个最简单的页面显示出来。
 ![](1.png "result")
 

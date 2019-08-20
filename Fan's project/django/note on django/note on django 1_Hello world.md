@@ -1,8 +1,9 @@
-## django study note 1: the first page
+## Django study note 1: the first page
 
 #### 入门
 
-创建一个新的网站
+创建一个新的网站，在命令行中运行下面的代码（前提是要先下载django的包，可以参考django
+官方文档的方法：https://docs.djangoproject.com/zh-hans/2.2/intro/install/）
 ``` 
 django-admin startproject mysite
 ```
@@ -18,12 +19,12 @@ mysite/
 		urls.py
 		wsgi.py
 ```
-创建一个新的应用
+创建一个新的应用，依旧是在命令行中输入下面代码
 ```
 python manage.py startapp <your app's name>
 ```
-我们可以在views.py中设计一个网页的视图，然而设计好视图后，我们需要将起链接到路径上。
-这部分我们要通过urls.py来完成。值得注意的是，主站（mywebsite)中在运行创建项目代码
+我们可以在views.py中设计一个网页的视图，然而设计好视图后，我们需要将起连接到路径上。
+这部分我们要通过urls.py来完成。值得注意的是，主站（mysite)中在运行创建项目代码
 时已经自然有一个urls.py文件了，在生成一个新的应用时，我们同样需要在这个文件夹中设立
 一个新的urls.py。
 

@@ -31,7 +31,7 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
 ```
 然后我们在命令行中执行下面的代码，来让整个网站知道我们对polls的改变
-```python 
+```
 $ python manage.py makemigrations polls
 ```
 结果会是这个样子的

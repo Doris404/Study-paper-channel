@@ -26,7 +26,7 @@
 
 > 一个讲解BE的网上资源：https://zhuanlan.zhihu.com/p/35261164
 
-$V(s) = E[R_{t+1} + /gamma v(S_{t+1}) | S_t = s]$ 
+$ V(s) = E[R_{t+1} + \gamma v(S_{t+1}) | S_t = s] $ 
 
 
 

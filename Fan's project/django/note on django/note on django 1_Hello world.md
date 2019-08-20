@@ -100,4 +100,7 @@ def index(request):
     return HttpResponse("Hello, world. You are at the polls index.")
 ```
 到目前为止我们实现的仅仅是在django框架下将一个最简单的页面显示出来。
+![](1.png "result")
+
+
 

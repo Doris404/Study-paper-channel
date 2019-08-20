@@ -64,7 +64,8 @@ manage.py
 首先看一下mysite文件夹的代码是怎样的，之前提到说views.py与urls.py是我们较为关注的文件
 ，并且views.py负责视图的效果，urls.py负责将这些网页连接到一起。下面我们来分别看一下这
 两个文件的内容是怎样的。
-\mysite\urls.py
+
+** \mysite\urls.py **
 ```python 
 from django.contrib import admin
 from django.urls import path,include
@@ -78,7 +79,7 @@ urlpatterns = [
 
 我们再来看一下polls文件夹里的代码是怎样的。
 
-polls\urls.py
+** polls\urls.py **
 ```
 from django.urls import path
 from . import views 
@@ -87,7 +88,7 @@ urlpatterns = [
     path('',views.index,name = 'index'),#这里引用了views.py中的index函数
 ]
 ```
-polls\views.py
+** polls\views.py **
 ```
 from django.shortcuts import render
 from django.http import HttpResponse

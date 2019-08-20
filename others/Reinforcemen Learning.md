@@ -28,11 +28,13 @@
 
 $ V(s) = E[R_{t+1} + \gamma v(S_{t+1}) | S_t = s] $ 
 
-$$V*(s)$$---expected reward starting at s and optimally
-$$Q*(s,a)$$---expected reward with starting point s taking action a and optimally
-$$\Pi*(s)$$
+$V^*(s)$---expected reward starting at s and optimally
+$Q^*(s,a)$---expected reward with starting point s taking action a and optimally
+$\pi^*(s)$
 
-$$ V*(s) = \max_{a}Q(s,a)$$
+$$ V^*(s) = \max_{a}Q(s,a)$$
+$$Q^*(s,a) = \sum_{s'}^T(s,a,s')(R(s,a,s') + \gammaV^*(s'))$$
+$$V$$
 
 
 

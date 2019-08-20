@@ -26,19 +26,18 @@
 
 > 一个讲解BE的网上资源：https://zhuanlan.zhihu.com/p/35261164
 
-$ V(s) = E[R_{t+1} + \gamma v(S_{t+1}) | S_t = s] $ 
+$$V^*(s) = \max_{a}Q^*(s,a)$$
+$$Q^*(s,a) = \sum_{s'}T(s,a,s')(R(s,a,s') + /gammaV^*(s'))$$
 
-$V^*(s)$---expected reward starting at s and optimally
+#### Value Interation alg
 
-$Q^*(s,a)$---expected reward with starting point s taking action a and optimally
+> https://blog.csdn.net/songrotek/article/details/51378582
 
-$\pi^*(s)$
+$V^*_k(s)$: k步之后状态s的最佳value,当k趋向无穷大时，$V^*_k(s)$区域$V(s)$
 
-$$V^*(s) = \max_{a}Q(s,a)$$
+**VI alg**
 
-$$Q^*(s,a) = \sum_{s'}^T(s,a,s')(R(s,a,s') + \gammaV^*(s'))$$
-
-$$V$$
+![](1.png "VI alg")
 
 
 

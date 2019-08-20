@@ -34,7 +34,7 @@ $Q^*(s,a)$---expected reward with starting point s taking action a and optimally
 
 $\pi^*(s)$
 
-$$ V^*(s) = \max_{a}Q(s,a)$$
+$$V^*(s) = \max_{a}Q(s,a)$$
 $$Q^*(s,a) = \sum_{s'}^T(s,a,s')(R(s,a,s') + \gammaV^*(s'))$$
 $$V$$
 

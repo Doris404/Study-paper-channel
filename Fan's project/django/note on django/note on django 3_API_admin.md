@@ -47,3 +47,4 @@ from .models import Question
 
 admin.site.register(Question)
 ```
+**注意**：一定要在polls/admin.py中注册模型，这个模型才可以使用

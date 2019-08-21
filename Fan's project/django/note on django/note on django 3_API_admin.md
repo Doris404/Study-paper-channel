@@ -29,3 +29,21 @@ Out[7]: "What's new?"
 In [8]: q.pub_date
 Out[8]: datetime.datetime(2019, 8, 20, 8, 51, 45, 726246, tzinfo=<UTC>)
 ```
+> 更多信息详见： https://docs.djangoproject.com/zh-hans/2.2/topics/db/queries/
+
+#### Django 管理页面
+
+```
+$ python manage.py createsuperuser
+```
+按照指令输入，即可创建一个超级用户。创建一个超级用户之后，即可在网页上进行加入模型
+的操作，这简化了网页的建设过程。
+
+**polls/admin.py**
+```
+from django.contrib import admin
+
+from .models import Question
+
+admin.site.register(Question)
+```

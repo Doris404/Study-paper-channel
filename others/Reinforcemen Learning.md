@@ -11,6 +11,20 @@
 * transitions : T(s,a,s') = P(s'|s,a) 在s状态下采取a行动最总到达s'的概率
 * reward : R(s) R(s,a,s')...
 
+**MDP**
+
+<S,A,T,R>对于每一个状态，寻找最佳的a $\pi(s)$，
+使得最终获益最大。其中$\pi^*(s) = \argmax_aQ^*(s,a)$
+
+**RL**
+
+<S,A>
+
+$T(s,a,s') = \frac^{count(s,a,s')}_{\sum_s'count(s,a,s')}
+
+$R(s,a,s') = \frac^{\sum_tR(s,a,s')}_{count(s,a,s')}$
+
+
 **Utility function---be bounded in some way**
 
 * Final horizon: 只计算n步的奖励
@@ -38,6 +52,10 @@ $V^*_k(s)$: k步之后状态s的最佳value,当k趋向无穷大时，$V^*_k(s)$区域$V(s)$
 **VI alg**
 
 ![](1.png "VI alg")
+
+**Q-value Iteration**
+
+
 
 
 

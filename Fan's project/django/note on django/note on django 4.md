@@ -1,6 +1,7 @@
 ## Note on Django 4 视图模板
 
 
+视图是网页中最核心的部分，我们可以再views.py中写入代码来更改页面的效果
 先看一个简单的例子：
 
 **polls/views.py**
@@ -32,6 +33,8 @@ urlpatterns = [
     path('<int:question_id>/vote/', views.vote, name='vote'),
 ]
 ```
+在这个例子中，页面的输出都是固定好的字符串，这显然无法满足需求，为此我们引入模板
+来使得输出的页面更为灵活多变
 
 下面看一个更有用的例子：
 
@@ -62,6 +65,9 @@ def index(request):
     <p>No polls are available.</p>
 {% endif %}
 ```
+在html文件中，我们定义了页面的模式，通过给这个模型输入具体的数值，可以得到最终的
+页面
+
 > 模板语言详见：https://docs.djangoproject.com/zh-hans/2.2/topics/templates/
 
 Django 提供了一个快捷函数render()来完成载入模板，填充上下文，再返回由它生成的

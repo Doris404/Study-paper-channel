@@ -55,7 +55,11 @@ $V^*_k(s)$: k步之后状态s的最佳value,当k趋向无穷大时，$V^*_k(s)$区域$V(s)$
 
 **Q-value Iteration**
 
+$$sample_1 = R(s,a,s_1^')+/gamma*max_{a'}Q(s_1^',,a')$$
+Q(s,a) = average of sample_1 to sample_k
 
+X_n = $/frac_{1+(1-/alpha)+(1-/alpha)^2...}^{X_n+(1-/alpha)X_{n-1}...}
+$$X_n = /alphaX_n+(1-/alpha)X_{n-1}$$
 
 
 

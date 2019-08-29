@@ -1,5 +1,6 @@
 ## Reinforcement Learning
 > 一些简单易懂的例子：https://www.zhihu.com/question/41775291
+> https://zhuanlan.zhihu.com/p/25319023
 * Markov decision processes
 * Bellman equations
 * Value Interation alg

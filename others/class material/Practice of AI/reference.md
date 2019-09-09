@@ -1,4 +1,5 @@
 ## Reference
+> 与 AI and ML 一致，进行更改只在AI and ML 进行
 
 * 周志华，机器学习，清华大学出版社
 * 2016. 2. Aurelien Geron, Hands-On Machine Learning with Scikit-Learn & TensorFlow, O’Reilly Media 

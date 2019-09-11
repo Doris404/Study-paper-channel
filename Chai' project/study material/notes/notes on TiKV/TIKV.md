@@ -96,15 +96,50 @@ thread 'main' panicked at 'failpoint before_print panic' ...
 
 * 创建一个环境，内部会为每一个完成队列启动一个线程
 * 接着创建Server对象，绑定端口，并将一个或多个服务注册在这个Serverr上
-* 最后调用Server的start方法，将服务的具体实现关联到若干Call上，并塞进所有的完成队列 
-中。
+* 最后调用Server的start方法，将服务的具体实现关联到若干Call上，并塞进所有的完成队列中。
 
 #### gRPC-rs的封装与实现
 
 > https://pingcap.com/blog-cn/tikv-source-code-reading-8/
 
+gRPC C Core 提供了一个库来提供gRPC的基本实现，其中有三个重要概念：``` grpc_channel```,```grpc_completion_queue```,```grpc_call```
+
+#### Service层处理流程解析
+
+> https://pingcap.com/blog-cn/tikv-source-code-reading-9/
+
+Service 层代码在```src/server```
+
+#### Snapshot的发送和接收
+
+>https://pingcap.com/blog-cn/tikv-source-code-reading-10/
+
+什么是snapshot:
+
+* snapshot是某个时刻系统状态的快照，保存的是此刻系统状态数据，以便于用户可以恢复到系统任意时刻的状态
+* 理论上说，完全可以将Snapshot当做普通的```RaftMessage```来发送，但是这样会产生一些实际问题
+    * Snapshot耗时过长，如果公用网络链接容易导致网络拥塞，进而引起其他Region出现Raft选举超时
+    * 构建等待发送Snapshot耗内存
+    * 过大消息可能导致gRPC的message size限制问题
+    
+为什么需要snapshot:
+
+* 正常情况下，leader与follower之间通过append log进行同步，leader会定期处理过老的log。如果follower出现宕机，恢复后可能缺失的log已经被leader节点清理掉了，只能通过Snapshot进行同步
+* Raft加入新节点，由于新节点没同步过任何日志，只能通过接收Snapshot来同步
+* 备份、恢复等需求，应用层需要dump一份State Machine的完整数据
+
+如何实现snapshot:
+
+* snap-worker在snapshot的收发过程中起作用
+    * **发送：**包装```RaftMessage```成一个```SnapTask：：Send```任务，交给```snap-worker```处理。
+    * **接收：**包装```RaftMessage```成一个```SnapTask：：Recv```任务，交给```snap-worker```处理。
 
 
+#### Storage-事务控制层
+
+> https://pingcap.com/blog-cn/tikv-source-code-reading-11/
+
+#### 分布式事务
 
 
 

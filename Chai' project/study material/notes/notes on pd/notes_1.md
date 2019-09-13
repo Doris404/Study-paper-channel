@@ -1,41 +1,23 @@
 ## /server/coordinator.go 
  
-#### 学习心得
+#### 变量
 
-* 在go中Channel是一个核心类型，你可以把它看成一个管道，通过它并发核心单元就可以发送或者接收数据进行通讯(communication)。 timer和ticker是关于时间的两个channel
-* go func(){}()以并发方式调用匿名函数func
-* channel的操作符是```<-```
-	- ch <- v // 发送值v到Channel ch中
-	- v := <-ch // 从Channel ch 中接收数据，并将数据赋值给v变量
-* coordinator的定义
-```
-type coordinator struct {
-	sync.RWMutex
+* coordinator 是一个结构体
 
-	wg     sync.WaitGroup
-	ctx    context.Context//ctx.Done()
-	cancel context.CancelFunc
-
-	cluster          *RaftCluster//cluster.isPrepared(),cluster.opt.Load().Clone(),cluster.GetPatrolRegion,cluster.GetPatrolRegionInterval()
-	learnerChecker   *checker.LearnerChecker
-	replicaChecker   *checker.ReplicaChecker
-	namespaceChecker *checker.NamespaceChecker
-	mergeChecker     *checker.MergeChecker
-	regionScatterer  *schedule.RegionScatterer
-	schedulers       map[string]*scheduleController
-	opController     *schedule.OperatorController
-	classifier       namespace.Classifier
-	hbStreams        *heartbeatStreams
-}
-```
-* Package zap provides fast, structured, leveled logging. 详见网址：https://godoc.org/go.uber.org/zap
-* patrolScanRegionLimit = 128 // It takes about 14 minutes to iterate 1 million regions.
 * **scheduleCfg的定义有疑惑**
 * coordinator.go中func(c *coordinator) patrolRegions()部分学习
 
+#### 函数
+
+* newCoordinator: creates a new coordinator
+* patrolRegions: check if the regions need to do some operations
+* drivePushOperator: push the unfinished operator to the excutor
+* checkRegion: if PD has restarted, it need to check learners added before and promote them.Don't check isRaftLearnerEnabled cause it maybe disable learner feature but there are still some learners to promote.
+* **run**:
+
 ## balance_leader.go
 
-#### 定义变量
+#### 变量
 
 * balanceLeaderRetryLimit = 10 重试次数最多10次
 * balanceLeaderScheduler 一个结构体，代表平衡leader的调度器，定义如下
@@ -53,7 +35,7 @@ type balanceLeaderScheduler struct {
 
 * BalanceLeaderCreateOption 一类函数，这类函数用于创造一个有选项的调度
 
-#### 定义函数
+#### 函数
 
 * func init
 * func newBalanceLeaderScheduler
@@ -109,7 +91,28 @@ type balanceLeaderScheduler struct {
 ##### 疑惑与发现
 * go 语言创建子函数的方法```
 func (l *balanceLeaderScheduler) Schedule(cluster schedule.Cluster) []*operator.Operator```是什么意思？
+
+可以参考网站：https://tour.go-zh.org/methods/4的内容
 * source store 和target store是两个关键，代码的逻辑是：transferLeaderOut是将leader从source store移出，transferLeaderIn是将leader从其它节点移到 target store，为了这两个操作产生了一些参数，例如：target score, source score
-* 涉及到关键操作时才写剪短的注释，并非关键代码可以不写注释
-* 
+* 涉及到关键操作时才写简洁的注释，并非关键代码可以不写注释
+
+## balance_region.go
+
+#### 变量
+
+* balaceRegionScheduler 是一个结构体
+
+#### 函数
+
+* newBalanceRegionScheduler : creates a scheduler that tends to keep regions on each store balanced
+
+* transferPeer: select the best store to create a new peer to replace the old peer
+
+* buildTargetFilter, buildSourceFilter: build a filter
+
+
+
+
+
+
 

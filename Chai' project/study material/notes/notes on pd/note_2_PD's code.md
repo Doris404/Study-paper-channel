@@ -199,9 +199,89 @@ PD在Region的heartbeat里对Region进行调度，接着在heartbeat的返回值
 
 4. 当Region的version变化（例如split），则key可能已经落入新的Region，client此时会收到```StateCommand```错误，于是重新从PD获取，回到状态1。
 
+## pd代码阅读3
+
+#### PD: Placement Driver
+
+> https://pingcap.com/blog-cn/the-design-and-implementation-of-multi-raft/
+
+PD 是 TiKV 的全局中央控制器，存储整个 TiKV 集群的元数据信息，负责整个 TiKV 集群的调度，全局 ID 的生成，以及全局 TSO 授时等。
+
+在 TiKV 里面，跟 PD 的交互是放在源码的 pd 目录下,我的工作应该在这个目录下展开。现在跟 PD 的交互都是通过自己定义的 RPC 实现，协议非常简单，在 pd/mod.rs 里面我们直接提供了用于跟 PD 进行交互的 Client trait，以及实现了 RPC Client。
+
+**bootstrap_cluster**：当我们启动一个 TiKV 服务的时候，首先需要通过 is_cluster_bootstrapped 来判断整个 TiKV 集群是否已经初始化，如果还没有初始化，我们就会在该 TiKV 服务上面创建第一个 region。
+
+**region_heartbeat**：定期 Region 向 PD 汇报自己的相关信息，供 PD 做后续的调度。譬如，如果一个 Region 给 PD 上报的 peers 的数量小于预设的副本数，那么 PD 就会给这个 Region 添加一个新的副本 Peer。
+
+**store_heartbeat**：定期 store 向 PD 汇报自己的相关信息，供 PD 做后续调度。譬如，Store 会告诉 PD 当前的磁盘大小，以及剩余空间，如果 PD 发现空间不够了，就不会考虑将其他的 Peer 迁移到这个 Store 上面。
+
+**ask_split/report_split**：当 Region 发现自己需要 split 的时候，就 ask_split 告诉 PD，PD 会生成新分裂 Region 的 ID ，当 Region 分裂成功之后，会 report_split 通知 PD。
+
+#### Raftstore
+
+在 TiKV 里面，Multi Raft 的实现是在 Raftstore 完成的，代码在 raftstore/store 目录。
+
+#### Region
+
+通常的数据分片算法就是 Hash 和 Range，TiKV 使用的 Range 来对数据进行数据分片。
+
+**Region的protobuf协议**:
+
+```
+message Region {
+    optional uint64 id                  = 1 [(gogoproto.nullable) = false];
+    optional bytes  start_key           = 2;
+    optional bytes  end_key             = 3;
+    optional RegionEpoch region_epoch   = 4;
+    repeated Peer   peers               = 5;
+}
+```
+
+region_epoch：当一个 Region 添加或者删除 Peer，或者 split 等，我们就会认为这个 Region 的 epoch 发生的变化，RegionEpoch 的 conf_ver 会在每次做 ConfChange 的时候递增，而 version 则是会在每次做 split/merge 的时候递增。
+
+#### RocksDB / Keys Prefix
+
+#### Peer storage
+
+在 TiKV 里面，一个 Peer 的创建有如下几种方式：
+
+    1. 主动创建，通常对于第一个 Region 的第一个副本 Peer，我们采用这样的创建方式，初始化的时候，我们会将它的 Log Term 和 Index 设置为 5。
+
+    2. 被动创建，当一个 Region 添加一个副本 Peer 的时候，当这个ConfChange 命令被 applied 之后， Leader 会给这个新增 Peer 所在的 Store 发送Message，Store 收到这个 Message 之后，发现并没有相应的 Peer 存在，并且确定这个Message 是合法的，就会创建一个对应的 Peer，但此时这个 Peer 是一个未初始化的 Peer，不知道所在的 Region 任何的信息，我们使用 0 来初始化它的 Log Term 和 Index。Leader 就能知道这个 Follower 并没有数据（0 到 5 之间存在 Log 缺口），Leader 就会给这个 Follower 直接发送 snapshot。
+
+    3.Split 创建，当一个 Region 分裂成两个 Region，其中一个 Region 会继承分裂之前 Region 的元信息，只是会将自己的 Range 范围修改。而另一个 Region 相关的元信息，则会新建，新建的这个 Region 对应的 Peer，初始的 Log Term 和 Index 也是 5，因为这时候 Leader 和 Follower 都有最新的数据，不需要 snapshot。（注意：实际 Split 的情况非常的复杂，有可能也会出现发送 snapshot 的情况，但这里不做过多说明）。
+
+#### Peer
+
+对 Raft 的 Propose，ready 的处理都是在 Peer 里面完成的。
+
+**Propose函数**
+
+Peer 的 propose 是外部 Client command 的入口。Peer 会判断这个 command 的类型：
 
 
 
+    * 如果是只读操作，并且 Leader 仍然是在 lease 有效期内，Leader 就能直接提供 local read，不需要走 Raft 流程。
+
+    * 如果是 Transfer Leader 操作，Peer 首先会判断自己还是不是 Leader，同时判断需要变成新 Leader 的 Follower 是不是有足够新的 Log，如果条件都满足，Peer 就会调用 RawNode 的 transfer_leader 命令。
+
+    * 如果是 Change Peer 操作，Peer 就会调用 RawNode propose_conf_change。
+
+    * 剩下的，Peer 会直接调用 RawNode 的 propose。
+
+在 propose 之前，Peer 也会将这个 command 对应的 callback 存到 PendingCmd 里面，当对应的 log 被 applied 之后，会通过 command 里面唯一的 uuid 找到对应的 callback 调用，并给 Client 返回相应的结果。
+
+为了保证数据的一致性，Peer 在 execute 的时候，都只会将修改的数据保存到 RocksDB 的 WriteBatch 里面，然后在最后原子的写入到 RocksDB，写入成功之后，才修改对应的内存元信息。如果写入失败，我们会直接 panic，保证数据的完整性。
+
+**Ready函数**
+
+在 Peer 处理 ready 的时候，我们还会传入一个 Transport 对象，用来让 Peer 发送 message。它就只有一个函数 send，TiKV 实现的 Transport 会将需要 send 的 message 发到 Server 层，由 Server 层发给其他的节点。
+
+#### Multi Raft
+
+#### Server
+
+Server 层就是 TiKV 的网络层
 
 
 

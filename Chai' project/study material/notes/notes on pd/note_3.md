@@ -64,4 +64,14 @@
 
 #### server 之中
 
+最重要的是```.../server/schedule```,```.../server/schedulers```
+
+
+#### schedulers
+
+**balance_region.go**
+
+
+
+**balance_leader.go**
 

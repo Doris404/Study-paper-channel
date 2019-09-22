@@ -158,8 +158,142 @@ inside x =  9
 
 ```
 
+#### interface
 
-> end point:https://tour.go-zh.org/methods/4
+```
+package main
+
+import "fmt"
+
+type I interface {
+	M()
+	K()
+}
+
+type T struct {
+	S string
+}
+
+// 此方法表示类型 T 实现了接口 I，但我们无需显式声明此事。
+func (t T) M() {
+	fmt.Println(t.S)
+}
+
+func (t T) K() {
+	fmt.Println("string is ",t.S)
+}
+
+func main() {
+	var i I = T{"hello"}
+	i.M()
+	i.K()
+}
+```
+最终输出：
+```
+hello
+string is  hello
+```
+
+一个接口使得不同的数据类型可以用一个函数名进行计算：
+```
+package main
+
+import "fmt"
+
+type calcu interface{
+	print_out ()
+	show_type ()
+}
+
+type vertex struct{
+	X float64
+	Y float64
+}
+
+type F float64
+
+func (v vertex) print_out(){
+	fmt.Println("print_out output : ", "vertex.X: ", v.X, "vertex.Y: ", v.Y)
+}
+
+func (v vertex) show_type(){
+	fmt.Println("show_type output : ", "vertex")
+}
+
+func (f F) print_out(){
+	fmt.Println("print_out output : ", "float64 : ", f)
+}
+
+func (f F) show_type(){
+	fmt.Println("show_type output : ", "float64")
+}
+
+func main(){
+	var i calcu
+	i = vertex{3,4}
+	i.print_out()
+	i.show_type()
+	i = F(2.3)
+	i.print_out()
+	i.show_type()
+}
+```
+输出：
+```
+print_out output :  vertex.X:  3 vertex.Y:  4
+show_type output :  vertex
+print_out output :  float64 :  2.3
+show_type output :  float64
+```
+
+**类型判断**
+
+```
+package main
+
+import "fmt"
+
+func main() {
+	var i interface{} = "hello"
+
+	s := i.(string)
+	fmt.Println(s)
+
+	s, ok := i.(string)
+	fmt.Println(s, ok)
+
+	f, ok := i.(float64)
+	fmt.Println(f, ok)
+
+	f = i.(float64) // 报错(panic)
+	fmt.Println(f)
+}
+```
+
+#### 信道
+
+```
+package main
+
+import "fmt"
+
+func main() {
+	ch := make(chan int, 2)
+	ch <- 1
+	ch <- 2
+	fmt.Println(<-ch)
+	fmt.Println(<-ch)
+}
+```
+输出
+```
+1
+2
+```
+信道(channel)就像一个队列(queue)一样，先进先出
+
+#### select 语句
 
 
 

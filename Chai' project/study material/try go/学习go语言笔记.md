@@ -291,10 +291,105 @@ func main() {
 1
 2
 ```
-信道(channel)就像一个队列(queue)一样，先进先出
+信道(channel)就像一个队列(queue)一样，先进先出.
+
+创建一个信道的语句是：
+```
+new_channel := make(chan channel_type, column)
+
+其中channel_type即信道里元素的种类，column是信道的大小
+```
 
 #### select 语句
 
+```
+package main
+
+import "fmt"
+
+func fibonacci(c, quit chan int) {
+	x, y := 0, 1
+	for {
+		select {
+		case c <- x:
+			x, y = y, x+y
+		case <-quit:
+			fmt.Println("quit")
+			return
+		}
+	}
+}
+
+func main() {
+	c := make(chan int)
+	quit := make(chan int)
+	go func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println(<-c)
+		}
+		quit <- 0
+	}()
+	fibonacci(c, quit)
+}
+```
+输出：
+
+```
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+quit
+```
+大多数情况下，select语句与for语句一起出现，以达到多次选择的作用,请看下面这个例子
+
+```
+package main
+
+import (
+	"fmt"
+	"time"
+)
+func main(){
+	c1 := make(chan string)
+	c2 := make(chan string)
+
+	go func(){
+		time.Sleep(1*time.Second)
+		c1 <- "one"
+	}()
+	go func(){
+		time.Sleep(1*time.Second)
+		c2 <- "two"
+	}()
+
+	for i := 0; i < 2; i++{
+		select{
+		case msg1 := <- c1:
+			fmt.Println("received",msg1)
+		
+		case msg2 := <- c2:
+			fmt.Println("received",msg2)
+		}
+	}
+
+}
+```
+在这个例子中，两个go func()仅仅是将两个channel装满，在后面的for循环中每一次循环中要打印一个channel的消息。打印的顺序是随机的。
+
+>更多学习： https://tour.go-zh.org/concurrency/11
+
+#### 并发
+
+#### 疑惑
+
+- select 
 
 
 

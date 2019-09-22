@@ -12,7 +12,9 @@
 - https://github.com/Unknwon/the-way-to-go_ZH_CN
 - https://studygolang.com/pkgdoc
 - **Introduction to go language**:https://tour.go-zh.org/welcome/1
+- go文档：https://go-zh.org/doc/
 - **package of go language**:https://go-zh.org/pkg/
+- 
 
 #### some material about TiKV
 - DDIA study material: https://github.com/Vonng/DDIA

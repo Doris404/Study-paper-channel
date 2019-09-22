@@ -1,0 +1,19 @@
+## 柴项目整体流程介绍
+
+TiDB 是一个分布式系统，它希望做到：
+
+- 跨数据中心容灾
+- 写入速度快
+- 方便读取数据
+- 支持并发修改
+- 原子地修改多条记录
+
+TiKV是为了解决数据存储问题产生的项目，可以将TiKV看成一个巨大的map,每一行都是key-Value pair
+
+RocksDB: TiKV把数据保存在RocksDB中，具体数据的存储是由RocksDB负责的
+
+Raft:高效处理副本失效的数据管理策略
+
+Region:一个TiKV中有多个Region
+
+事务：Percolator模型

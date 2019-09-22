@@ -1,26 +1,31 @@
 ## Reference
 
-* ÖÜÖ¾»ª£¬»úÆ÷Ñ§Ï°£¬Çå»ª´óÑ§³ö°æÉç
-* 2016. 2. Aurelien Geron, Hands-On Machine Learning with Scikit-Learn & TensorFlow, O¡¯Reilly Media 
+* å‘¨å¿—åï¼Œæœºå™¨å­¦ä¹ ï¼Œæ¸…åå¤§å­¦å‡ºç‰ˆç¤¾
+* 2016. 2. Aurelien Geron, Hands-On Machine Learning with Scikit-Learn & TensorFlow, Oâ€™Reilly Media 
 	* https://github.com/ageron/handson-ml
 	* https://learning.oreilly.com/library/view/hands-on-machine-learning/9781492032632/
 * 2017. 3. Sebastian Raschka, Vahid Mirjalili, Python Machine Learning (2nd edition), Packt Publishing
-* 2017. 4. Andreas C. Mueller, Sarah Guido, Introduction to Machine Learning with Python, O¡¯Reilly Media
+* 2017. 4. Andreas C. Mueller, Sarah Guido, Introduction to Machine Learning with Python, Oâ€™Reilly Media
 	* https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/
 * 2016. 5. Ian Goodfellow, Yoshua Bengio, Aaron Courville, Deep Learning, MIT Press
 	* http://www.deeplearningbook.org/
-* 2016.6.  Jake VanderPlas, Python Data Science Handbook ¿âµÄÊ¹ÓÃ
+* 2016.6.  Jake VanderPlas, Python Data Science Handbook åº“çš„ä½¿ç”¨
 	* https://jakevdp.github.io/PythonDataScienceHandbook/
 
 
 ## Basic material
 
-* ½ÌÊ¦£ºÍõÇïÔÂ qiuyuew@ruc.edu.cn
-* ¿Î³ÌÄÚÈİ£º
-	* python¿â£º Numpy Matplotlib(Cbone) Pandas
-	* ÓĞ¼à¶½Ñ§Ï°£ºKNN ÏßĞÔ»Ø¹é Âß¼­»Ø¹é ÆÓËØ±´Ò¶Ë¹ SVM ¾ö²ßÊ÷ ¼¯³ÉÑ§Ï°
-	* ÎŞ¼à¶½Ñ§Ï°£º¾ÛÀà K¾ùÖµ ²ã´Î¾ÛÀà
-	* Éî¶ÈÑ§Ï°£º¶à²ã´Î¸ĞÖªÆ÷ ¾í»ıÉñ¾­ÍøÂç
-* ¿Î³ÌÍøÕ¾£ºhttps://www.ketangpai.com/Courseware/index/courseid/MDAwMDAwMDAwMLR2qduHz6dr.html
-* 
+* æ•™å¸ˆï¼šç‹ç§‹æœˆ qiuyuew@ruc.edu.cn
+* è¯¾ç¨‹å†…å®¹ï¼š
+	* pythonåº“ï¼š Numpy Matplotlib(Cbone) Pandas
+	* æœ‰ç›‘ç£å­¦ä¹ ï¼šKNN çº¿æ€§å›å½’ é€»è¾‘å›å½’ æœ´ç´ è´å¶æ–¯ SVM å†³ç­–æ ‘ é›†æˆå­¦ä¹ 
+	* æ— ç›‘ç£å­¦ä¹ ï¼šèšç±» Kå‡å€¼ å±‚æ¬¡èšç±»
+	* æ·±åº¦å­¦ä¹ ï¼šå¤šå±‚æ¬¡æ„ŸçŸ¥å™¨ å·ç§¯ç¥ç»ç½‘ç»œ
+* è¯¾ç¨‹ç½‘ç«™ï¼šhttps://www.ketangpai.com/Courseware/index/courseid/MDAwMDAwMDAwMLR2qduHz6dr.html
+* äº¤äº’å¼ç»ƒä¹ èµ„æºï¼š
+	* Codecademy:https://codecademy.com/learn/learn-python-3 
+	* Dataquest:https://www.dataquest.io
+	* Kaggle:https://www.Kaggle.com/learn/python
+	* LeetCode:https://leetcode.com/problemset/all/
+
 

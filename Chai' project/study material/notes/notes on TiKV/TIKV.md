@@ -1,64 +1,64 @@
-## TIKV Ñ§Ï°±Ê¼Ç
+## TIKV å­¦ä¹ ç¬”è®°
 
 * Storage Engin
-* Raft£ºÒ»ÖÂĞÔĞ­Òé
-* gRPC£ºÍ¨Ñ¶¿ò¼Ü
-* Prometheus: ¼à¿ØÏµÍ³
-* Fail:´íÎó×¢ÈëµÄ¿â
+* Raftï¼šä¸€è‡´æ€§åè®®
+* gRPCï¼šé€šè®¯æ¡†æ¶
+* Prometheus: ç›‘æ§ç³»ç»Ÿ
+* Fail:é”™è¯¯æ³¨å…¥çš„åº“
 * TiKV
 * PD
 
 #### raft-rs
-> Ò»¸öÍøÒ³°ïÖúÀí½âraftËã·¨£ºhttp://thesecretlivesofdata.com/raft/
+> ä¸€ä¸ªç½‘é¡µå¸®åŠ©ç†è§£raftç®—æ³•ï¼šhttp://thesecretlivesofdata.com/raft/
 
 #### Prometheus
-> rust-prometheusÊÇ¼à¿ØÏµÍ³PrometheusµÄRust¿Í»§¶Ë¿â£¬PrometheusÖ§³ÖµÄ4ÖÖÖ¸±ê£ºCounter,Gauge
-,Histogram,Summary£¬ËüÖ§³ÖÇ°ÈıÖÖ,¾ßÌåÏ¸½ÚÇë¼û£ºhttps://pingcap.com/blog-cn/tikv-source-code-reading-4/
-ºÍhttps://pingcap.com/blog-cn/tikv-source-code-reading-3/
+> rust-prometheusæ˜¯ç›‘æ§ç³»ç»ŸPrometheusçš„Rustå®¢æˆ·ç«¯åº“ï¼ŒPrometheusæ”¯æŒçš„4ç§æŒ‡æ ‡ï¼šCounter,Gauge
+,Histogram,Summaryï¼Œå®ƒæ”¯æŒå‰ä¸‰ç§,å…·ä½“ç»†èŠ‚è¯·è§ï¼šhttps://pingcap.com/blog-cn/tikv-source-code-reading-4/
+å’Œhttps://pingcap.com/blog-cn/tikv-source-code-reading-3/
 
 **Counter**
 
-CounterÊÇ×î¼òµ¥£¬³£ÓÃµÄÖ¸±ê¡£ÕıÈçÆäÃû×Ö£¬CounterÊÇÒ»ÖÖÊÊºÏÓÚ¼ÆÊı¡¢ÀÛ¼ÆµÄÖ¸±ê£¬µ¥µ÷
-µİÔö
+Counteræ˜¯æœ€ç®€å•ï¼Œå¸¸ç”¨çš„æŒ‡æ ‡ã€‚æ­£å¦‚å…¶åå­—ï¼ŒCounteræ˜¯ä¸€ç§é€‚åˆäºè®¡æ•°ã€ç´¯è®¡çš„æŒ‡æ ‡ï¼Œå•è°ƒ
+é€’å¢
 
 **Gauge**
 
-GaugeÊÊÓÃÓÚÉÏÏÂ²¨¶¯µÄÖ¸±ê£¬Ìá¹©µÄ```inc()```,```dec()```,```add()```,```sub()```Óë```set()```,ÓÃÓÚ
-¸üĞÂÖ¸±ê
+Gaugeé€‚ç”¨äºä¸Šä¸‹æ³¢åŠ¨çš„æŒ‡æ ‡ï¼Œæä¾›çš„```inc()```,```dec()```,```add()```,```sub()```ä¸```set()```,ç”¨äº
+æ›´æ–°æŒ‡æ ‡
 
 **Histogram**
 
-Histogram¼´Ö±·½Í¼£¬³ıÁË»ù±¾¼ÆÊıÍâ»¹¿ÉÒÔ¼ÆËã·ÖÎ»Êı
+Histogramå³ç›´æ–¹å›¾ï¼Œé™¤äº†åŸºæœ¬è®¡æ•°å¤–è¿˜å¯ä»¥è®¡ç®—åˆ†ä½æ•°
 
 **Summary**
 
-SummaryÄ¿Ç°»¹Î´ÔÚrust-promtheusÖĞÊµÏÖ
+Summaryç›®å‰è¿˜æœªåœ¨rust-promtheusä¸­å®ç°
 
-**»ù±¾ÓÃ·¨**
+**åŸºæœ¬ç”¨æ³•**
 
-* ¶¨ÒåÏëÒªÊÕ¼¯µÄÖ¸±ê
-* ÔÚ´úÂëÌØ¶¨Î»ÖÃµ÷ÓÃÖ¸±êÌá¹©µÄ½Ó¿ÚÊÕ¼¯¼ÇÂ¼Ö¸±êÖµ
-* ÊµÏÖHTTP Pull Service Ê¹µÃPrometheus ¿ÉÒÔ¶¨ÆÚ·ÃÎÊÊÕ¼¯µ½µÄÖ¸±ê£¬»òÕßÊ¹ÓÃ
-rust-prometheusÌá¹©µÄPush ¹¦ÄÜ¶¨ÆÚ½«ÊÕ¼¯µ½µÄÖ¸±êÉÏ´«µ½Pushgateway
+* å®šä¹‰æƒ³è¦æ”¶é›†çš„æŒ‡æ ‡
+* åœ¨ä»£ç ç‰¹å®šä½ç½®è°ƒç”¨æŒ‡æ ‡æä¾›çš„æ¥å£æ”¶é›†è®°å½•æŒ‡æ ‡å€¼
+* å®ç°HTTP Pull Service ä½¿å¾—Prometheus å¯ä»¥å®šæœŸè®¿é—®æ”¶é›†åˆ°çš„æŒ‡æ ‡ï¼Œæˆ–è€…ä½¿ç”¨
+rust-prometheusæä¾›çš„Push åŠŸèƒ½å®šæœŸå°†æ”¶é›†åˆ°çš„æŒ‡æ ‡ä¸Šä¼ åˆ°Pushgateway
 
 #### fail-rs 
 
-> fail-rs °ïÖúTIKVÔÚÍ¨³£²âÊÔÖĞÊ¹ÓÃfail pointÀ´¹¹½¨Òì³£Çé¿ö£¬´Ó¶ø½øĞĞ´úÂë²âÊÔ£¬Ïê¼û£º
+> fail-rs å¸®åŠ©TIKVåœ¨é€šå¸¸æµ‹è¯•ä¸­ä½¿ç”¨fail pointæ¥æ„å»ºå¼‚å¸¸æƒ…å†µï¼Œä»è€Œè¿›è¡Œä»£ç æµ‹è¯•ï¼Œè¯¦è§ï¼š
 https://pingcap.com/blog-cn/tikv-source-code-reading-5/
 
-ÔÚ·Ö²¼Ê½ÏµÍ³ÖĞÊ±ĞòµÄ¹ØÏµÊÇ·Ç³£¹Ø¼üµÄ£¬¿ÉÄÜÁ½¸ö²Ù×÷µÄÖ´ĞĞË³ĞòÏà·´£¬¾Íµ¼ÖÂÁË½ØÈ»²»Í¬µÄ
-½á¹û£¬ÓÈÆäÊÇ¶ÔÓÚÊı¾İ¿âÀ´Ëµ£¬±£Ö¤Êı¾İµÄÒ»ÖÂĞÔ·Ç³£ÖØÒª£¬Òò´ËĞèÒª×öÒ»Ğ©²âÊÔ¹¤×÷£¬Õâ
-±ãÊÇfail point´æÔÚµÄÒâÒåËùÔÚ¡£
+åœ¨åˆ†å¸ƒå¼ç³»ç»Ÿä¸­æ—¶åºçš„å…³ç³»æ˜¯éå¸¸å…³é”®çš„ï¼Œå¯èƒ½ä¸¤ä¸ªæ“ä½œçš„æ‰§è¡Œé¡ºåºç›¸åï¼Œå°±å¯¼è‡´äº†æˆªç„¶ä¸åŒçš„
+ç»“æœï¼Œå°¤å…¶æ˜¯å¯¹äºæ•°æ®åº“æ¥è¯´ï¼Œä¿è¯æ•°æ®çš„ä¸€è‡´æ€§éå¸¸é‡è¦ï¼Œå› æ­¤éœ€è¦åšä¸€äº›æµ‹è¯•å·¥ä½œï¼Œè¿™
+ä¾¿æ˜¯fail pointå­˜åœ¨çš„æ„ä¹‰æ‰€åœ¨ã€‚
 
-**»ù±¾ÓÃ·¨**
+**åŸºæœ¬ç”¨æ³•**
 
 ```
 #[macro_use]
 extern crate fail;
 
 fn say_hello() {
-    fail_point!(¡°before_print¡±);
-    println!(¡°Hello World~¡±);
+    fail_point!(â€œbefore_printâ€);
+    println!(â€œHello World~â€);
 }
 
 fn main() {
@@ -67,79 +67,79 @@ fn main() {
     say_hello();
 }
 ```
-ÔËĞĞ½á¹ûÈçÏÂ£º
+è¿è¡Œç»“æœå¦‚ä¸‹ï¼š
 ```
 Hello World~
 thread 'main' panicked at 'failpoint before_print panic' ...
 ```
 
-**Fail pointĞĞÎª**
+**Fail pointè¡Œä¸º**
 
 ```
 [<pct>%][<cnt>*]<type>[(args...)][-><more terms>]
 ```
 
-* pct: ĞĞÎª±»Ö´ĞĞÊ±ÓĞ°Ù·ÖÖ®pctµÄ¼¸ÂÊ´¥
-* cnt: ĞĞÎª×Ü¹²ÄÜ±»´¥·¢µÄ´ÎÊı
-* type:ĞĞÎªÀàĞÍ
-* arts:ĞĞÎª²ÎÊı
+* pct: è¡Œä¸ºè¢«æ‰§è¡Œæ—¶æœ‰ç™¾åˆ†ä¹‹pctçš„å‡ ç‡è§¦
+* cnt: è¡Œä¸ºæ€»å…±èƒ½è¢«è§¦å‘çš„æ¬¡æ•°
+* type:è¡Œä¸ºç±»å‹
+* arts:è¡Œä¸ºå‚æ•°
 
-#### raft-rsÈÕÖ¾¸´ÖÆ¹ı³Ì
+#### raft-rsæ—¥å¿—å¤åˆ¶è¿‡ç¨‹
 
 > https://pingcap.com/blog-cn/tikv-source-code-reading-6/
 
 **MsgAppend & MsgAppendResponse**
 
-#### gRPC ServerµÄ³õÊ¼»¯ºÍÆô¶¯Á÷³Ì
+#### gRPC Serverçš„åˆå§‹åŒ–å’Œå¯åŠ¨æµç¨‹
 
 > https://pingcap.com/blog-cn/tikv-source-code-reading-7/
 
-* ´´½¨Ò»¸ö»·¾³£¬ÄÚ²¿»áÎªÃ¿Ò»¸öÍê³É¶ÓÁĞÆô¶¯Ò»¸öÏß³Ì
-* ½Ó×Å´´½¨Server¶ÔÏó£¬°ó¶¨¶Ë¿Ú£¬²¢½«Ò»¸ö»ò¶à¸ö·şÎñ×¢²áÔÚÕâ¸öServerrÉÏ
-* ×îºóµ÷ÓÃServerµÄstart·½·¨£¬½«·şÎñµÄ¾ßÌåÊµÏÖ¹ØÁªµ½Èô¸ÉCallÉÏ£¬²¢Èû½øËùÓĞµÄÍê³É¶ÓÁĞÖĞ¡£
+* åˆ›å»ºä¸€ä¸ªç¯å¢ƒï¼Œå†…éƒ¨ä¼šä¸ºæ¯ä¸€ä¸ªå®Œæˆé˜Ÿåˆ—å¯åŠ¨ä¸€ä¸ªçº¿ç¨‹
+* æ¥ç€åˆ›å»ºServerå¯¹è±¡ï¼Œç»‘å®šç«¯å£ï¼Œå¹¶å°†ä¸€ä¸ªæˆ–å¤šä¸ªæœåŠ¡æ³¨å†Œåœ¨è¿™ä¸ªServerrä¸Š
+* æœ€åè°ƒç”¨Serverçš„startæ–¹æ³•ï¼Œå°†æœåŠ¡çš„å…·ä½“å®ç°å…³è”åˆ°è‹¥å¹²Callä¸Šï¼Œå¹¶å¡è¿›æ‰€æœ‰çš„å®Œæˆé˜Ÿåˆ—ä¸­ã€‚
 
-#### gRPC-rsµÄ·â×°ÓëÊµÏÖ
+#### gRPC-rsçš„å°è£…ä¸å®ç°
 
 > https://pingcap.com/blog-cn/tikv-source-code-reading-8/
 
-gRPC C Core Ìá¹©ÁËÒ»¸ö¿âÀ´Ìá¹©gRPCµÄ»ù±¾ÊµÏÖ£¬ÆäÖĞÓĞÈı¸öÖØÒª¸ÅÄî£º``` grpc_channel```,```grpc_completion_queue```,```grpc_call```
+gRPC C Core æä¾›äº†ä¸€ä¸ªåº“æ¥æä¾›gRPCçš„åŸºæœ¬å®ç°ï¼Œå…¶ä¸­æœ‰ä¸‰ä¸ªé‡è¦æ¦‚å¿µï¼š``` grpc_channel```,```grpc_completion_queue```,```grpc_call```
 
-#### Service²ã´¦ÀíÁ÷³Ì½âÎö
+#### Serviceå±‚å¤„ç†æµç¨‹è§£æ
 
 > https://pingcap.com/blog-cn/tikv-source-code-reading-9/
 
-Service ²ã´úÂëÔÚ```src/server```
+Service å±‚ä»£ç åœ¨```src/server```
 
-#### SnapshotµÄ·¢ËÍºÍ½ÓÊÕ
+#### Snapshotçš„å‘é€å’Œæ¥æ”¶
 
 >https://pingcap.com/blog-cn/tikv-source-code-reading-10/
 
-Ê²Ã´ÊÇsnapshot:
+ä»€ä¹ˆæ˜¯snapshot:
 
-* snapshotÊÇÄ³¸öÊ±¿ÌÏµÍ³×´Ì¬µÄ¿ìÕÕ£¬±£´æµÄÊÇ´Ë¿ÌÏµÍ³×´Ì¬Êı¾İ£¬ÒÔ±ãÓÚÓÃ»§¿ÉÒÔ»Ö¸´µ½ÏµÍ³ÈÎÒâÊ±¿ÌµÄ×´Ì¬
-* ÀíÂÛÉÏËµ£¬ÍêÈ«¿ÉÒÔ½«Snapshotµ±×öÆÕÍ¨µÄ```RaftMessage```À´·¢ËÍ£¬µ«ÊÇÕâÑù»á²úÉúÒ»Ğ©Êµ¼ÊÎÊÌâ
-    * SnapshotºÄÊ±¹ı³¤£¬Èç¹û¹«ÓÃÍøÂçÁ´½ÓÈİÒ×µ¼ÖÂÍøÂçÓµÈû£¬½ø¶øÒıÆğÆäËûRegion³öÏÖRaftÑ¡¾Ù³¬Ê±
-    * ¹¹½¨µÈ´ı·¢ËÍSnapshotºÄÄÚ´æ
-    * ¹ı´óÏûÏ¢¿ÉÄÜµ¼ÖÂgRPCµÄmessage sizeÏŞÖÆÎÊÌâ
+* snapshotæ˜¯æŸä¸ªæ—¶åˆ»ç³»ç»ŸçŠ¶æ€çš„å¿«ç…§ï¼Œä¿å­˜çš„æ˜¯æ­¤åˆ»ç³»ç»ŸçŠ¶æ€æ•°æ®ï¼Œä»¥ä¾¿äºç”¨æˆ·å¯ä»¥æ¢å¤åˆ°ç³»ç»Ÿä»»æ„æ—¶åˆ»çš„çŠ¶æ€
+* ç†è®ºä¸Šè¯´ï¼Œå®Œå…¨å¯ä»¥å°†Snapshotå½“åšæ™®é€šçš„```RaftMessage```æ¥å‘é€ï¼Œä½†æ˜¯è¿™æ ·ä¼šäº§ç”Ÿä¸€äº›å®é™…é—®é¢˜
+    * Snapshotè€—æ—¶è¿‡é•¿ï¼Œå¦‚æœå…¬ç”¨ç½‘ç»œé“¾æ¥å®¹æ˜“å¯¼è‡´ç½‘ç»œæ‹¥å¡ï¼Œè¿›è€Œå¼•èµ·å…¶ä»–Regionå‡ºç°Rafté€‰ä¸¾è¶…æ—¶
+    * æ„å»ºç­‰å¾…å‘é€Snapshotè€—å†…å­˜
+    * è¿‡å¤§æ¶ˆæ¯å¯èƒ½å¯¼è‡´gRPCçš„message sizeé™åˆ¶é—®é¢˜
     
-ÎªÊ²Ã´ĞèÒªsnapshot:
+ä¸ºä»€ä¹ˆéœ€è¦snapshot:
 
-* Õı³£Çé¿öÏÂ£¬leaderÓëfollowerÖ®¼äÍ¨¹ıappend log½øĞĞÍ¬²½£¬leader»á¶¨ÆÚ´¦Àí¹ıÀÏµÄlog¡£Èç¹ûfollower³öÏÖå´»ú£¬»Ö¸´ºó¿ÉÄÜÈ±Ê§µÄlogÒÑ¾­±»leader½ÚµãÇåÀíµôÁË£¬Ö»ÄÜÍ¨¹ıSnapshot½øĞĞÍ¬²½
-* Raft¼ÓÈëĞÂ½Úµã£¬ÓÉÓÚĞÂ½ÚµãÃ»Í¬²½¹ıÈÎºÎÈÕÖ¾£¬Ö»ÄÜÍ¨¹ı½ÓÊÕSnapshotÀ´Í¬²½
-* ±¸·İ¡¢»Ö¸´µÈĞèÇó£¬Ó¦ÓÃ²ãĞèÒªdumpÒ»·İState MachineµÄÍêÕûÊı¾İ
+* æ­£å¸¸æƒ…å†µä¸‹ï¼Œleaderä¸followerä¹‹é—´é€šè¿‡append logè¿›è¡ŒåŒæ­¥ï¼Œleaderä¼šå®šæœŸå¤„ç†è¿‡è€çš„logã€‚å¦‚æœfollowerå‡ºç°å®•æœºï¼Œæ¢å¤åå¯èƒ½ç¼ºå¤±çš„logå·²ç»è¢«leaderèŠ‚ç‚¹æ¸…ç†æ‰äº†ï¼Œåªèƒ½é€šè¿‡Snapshotè¿›è¡ŒåŒæ­¥
+* RaftåŠ å…¥æ–°èŠ‚ç‚¹ï¼Œç”±äºæ–°èŠ‚ç‚¹æ²¡åŒæ­¥è¿‡ä»»ä½•æ—¥å¿—ï¼Œåªèƒ½é€šè¿‡æ¥æ”¶Snapshotæ¥åŒæ­¥
+* å¤‡ä»½ã€æ¢å¤ç­‰éœ€æ±‚ï¼Œåº”ç”¨å±‚éœ€è¦dumpä¸€ä»½State Machineçš„å®Œæ•´æ•°æ®
 
-ÈçºÎÊµÏÖsnapshot:
+å¦‚ä½•å®ç°snapshot:
 
-* snap-workerÔÚsnapshotµÄÊÕ·¢¹ı³ÌÖĞÆğ×÷ÓÃ
-    * **·¢ËÍ£º**°ü×°```RaftMessage```³ÉÒ»¸ö```SnapTask£º£ºSend```ÈÎÎñ£¬½»¸ø```snap-worker```´¦Àí¡£
-    * **½ÓÊÕ£º**°ü×°```RaftMessage```³ÉÒ»¸ö```SnapTask£º£ºRecv```ÈÎÎñ£¬½»¸ø```snap-worker```´¦Àí¡£
+* snap-workeråœ¨snapshotçš„æ”¶å‘è¿‡ç¨‹ä¸­èµ·ä½œç”¨
+    * **å‘é€ï¼š**åŒ…è£…```RaftMessage```æˆä¸€ä¸ª```SnapTaskï¼šï¼šSend```ä»»åŠ¡ï¼Œäº¤ç»™```snap-worker```å¤„ç†ã€‚
+    * **æ¥æ”¶ï¼š**åŒ…è£…```RaftMessage```æˆä¸€ä¸ª```SnapTaskï¼šï¼šRecv```ä»»åŠ¡ï¼Œäº¤ç»™```snap-worker```å¤„ç†ã€‚
 
 
-#### Storage-ÊÂÎñ¿ØÖÆ²ã
+#### Storage-äº‹åŠ¡æ§åˆ¶å±‚
 
 > https://pingcap.com/blog-cn/tikv-source-code-reading-11/
 
-#### ·Ö²¼Ê½ÊÂÎñ
+#### åˆ†å¸ƒå¼äº‹åŠ¡
 
 
 

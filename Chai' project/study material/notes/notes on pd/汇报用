@@ -15,6 +15,10 @@ Raft 是一个调度策略，其中的主角是 leader, leader 先进行数据�
 
 PD像是大脑，在控制各个节点的数据操作，以及节点之间数据转移等操作
 
+<<<<<<< HEAD
 每一个TiKV要定期向PD汇报整个TiKV（store)的信息
 每一个leader也要定期向PD汇报leader和它的follower的信息
 PD根据这些信息进行策划
+=======
+TiKV要定期向PD汇报整个TiKV（store)的信息
+>>>>>>> d2d5ba5f352076e6214896d5234a862020051a1f

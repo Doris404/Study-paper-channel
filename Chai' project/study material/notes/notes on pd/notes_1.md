@@ -5,7 +5,7 @@
 * coordinator 是一个结构体
 
 * **scheduleCfg的定义有疑惑**
-* coordinator.go中func(c *coordinator) patrolRegions()部分学习
+* coordinator.go中```func(c *coordinator) patrolRegions()```部分学习
 
 #### 函数
 
@@ -37,6 +37,7 @@ type balanceLeaderScheduler struct {
 
 #### 函数
 
+```
 * func init
 * func newBalanceLeaderScheduler
 * func WithBalanceLeaderCounter
@@ -48,6 +49,7 @@ type balanceLeaderScheduler struct {
 * func (l *balanceLeaderScheduler) transferLeaderOut
 * func (l *balanceLeaderScheduler) transferLeaderIn
 * func (l *balanceLeaderScheduler) createOperator
+```
 
 ##### func newBalanceLeaderScheduler
 
@@ -104,15 +106,17 @@ func (l *balanceLeaderScheduler) Schedule(cluster schedule.Cluster) []*operator.
 
 #### 函数
 
-* newBalanceRegionScheduler : creates a scheduler that tends to keep regions on each store balanced
+```
+func (s *balanceRegionScheduler) Schedule(cluster schedule.Cluster, opInfluence schedule.OpInfluence) []*schedule.Operator {}
+```
+是一个关键的函数这个函数通过了解```schedule.Cluster```和```schedule.OpInfluence```得到一个使得region平衡的schedule.Operator
 
-* transferPeer: select the best store to create a new peer to replace the old peer
-
-* buildTargetFilter, buildSourceFilter: build a filter
-
-
-
-
-
+- 得到一个store，```stores := cluster.GetStores```，这个store就是一个tikv节点
+- 得到一个source,```source := s.selector.SelectSource(cluster,stores)```，source是store（TiKV)里面有着最高分的region，这个region可以被选择为```balance source```
+- 对应的错误处理，以及日志的更新
+- 在```balanceRegionRetryLimit```的限制内进行尝试，尝试的具体操作是
+	- ```region ：= cluster.RandFollowerRegion(source.Getld(),core.HealthRegion())```
+	- 对应的错误处理
+- 如果对region进行GetPeers操作后结果的长度不等于cluster.GetMaxRepilcas()，那么这个region是异常的region
 
 

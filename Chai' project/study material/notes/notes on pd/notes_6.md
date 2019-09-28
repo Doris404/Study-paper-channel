@@ -19,4 +19,8 @@ PD在handleStoreHeartbeat函数处理store的心跳，具体步骤为将心跳�
 
 PD在handleRegionHeartbeat函数处理region的心跳，只有leader peer才上报所属的region信息，收到信息后PD将信息放到cache里面，如果PD发现region的epoch有变化，就将这个region的信息放入cache里面。然后PD会对这个region进行具体的调度，譬如发现peer数目不够，添加新的peer等
 
+**handleStoreHeartbeat**
+**handleRegionHeartbeat**
+
+
 region的epoch里面有```conf_ver```和```version```分别表示region的不同版本状态，如果region发生了membership changes，则conf_ver+1，如果region发生了split或者merge，则version+1

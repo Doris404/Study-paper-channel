@@ -1,9 +1,12 @@
 ## Notes 2
 
-> DYNAMO：亚马逊数据库技术
-> redis: 可持久化（备份到硬盘） 高性能kv Nosql 内存数据库
-> Memcached: 高性能分布式数据库  
+> DYNAMO：亚马逊数据库技术 k-v
+> redis: 可持久化（备份到硬盘） 高性能kv Nosql 内存数据库 k-v
+> Memcached: 高性能分布式数据库 k-v
 > Clustrix 集群数据库系统 Clustered Database System
+> rapidly changing system requirement
+> RIAK:扩展性 数据安全 容错性 平等节点 k-v
+> 
 
 #### 频繁模式 Frequent Pattern(FM)
 
@@ -32,7 +35,34 @@ P37:不在频繁桶中说明模式出现次数小于预期，但是出现在频�
 
 #### 序列模式挖掘 
 
-**指标：Support & Confidence**
+**指标：Support**
 	
 	support = 包含所给序列的序列数/总样例数
-	confidence = 
+
+**两类序列模式挖掘**
+	
+	时间序列，系列的元素
+
+large = frequent
+
+**GSP算法（Generalized Sequence Pattern**
+
+	1.sort phase
+	2.Large itemset phase
+	3.Transformation phase
+	4.Sequence phase = Apriori All
+	5.Maximal phase
+
+区别周期模式与序列模式
+
+**Apriori All**
+
+	1.找出所有频繁序列
+		- 生成候选序列
+		- 计数
+		- 生成最大序列
+	2.生成所有最长序列
+
+**Apriori Some**
+	
+> ? maximal large sequence

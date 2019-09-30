@@ -66,3 +66,4 @@ large = frequent
 **Apriori Some**
 	
 > ? maximal large sequence
+

@@ -77,3 +77,82 @@ cluster.MemberRemove()
 cluster.MemberUpdate()
 cluster.MemberList()
 ```
+
+#### 以下为阅读代码时所发现的一些有趣代码
+
+**有关与size**
+
+	C:\Users\李晓桐\pd\pkg\faketikv\cases\add_nodes.go 
+	func newAddNodes() *Conf
+	store : Capacity 10gb, Available 9gb
+	Region : 96mb
+
+	C:\Users\李晓桐\pd\pkg\faketikv\cases\region_split.go
+	func newRegionSplit() *Conf
+	```
+	conf.Regions = append(conf.Regions, Region{
+		ID:     5,
+		Peers:  peers,
+		Leader: peers[0],
+		Size:   1 * mb,
+	})
+	```
+
+	C:\Users\李晓桐\pd\pkg\faketikv\task.go
+	```
+		type addPeer struct {
+		regionID uint64
+		size     int64
+		speed    int64
+		epoch    *metapb.RegionEpoch
+		peer     *metapb.Peer
+		finished bool
+	}
+	```
+
+	C:\Users\李晓桐\pd\server\api\region.go
+	```
+		type regionInfo struct {
+		ID          uint64              `json:"id"`
+		StartKey    string              `json:"start_key"`
+		EndKey      string              `json:"end_key"`
+		RegionEpoch *metapb.RegionEpoch `json:"epoch,omitempty"`
+		Peers       []*metapb.Peer      `json:"peers,omitempty"`
+		Leader          *metapb.Peer      `json:"leader,omitempty"`
+		DownPeers       []*pdpb.PeerStats `json:"down_peers,omitempty"`
+		PendingPeers    []*metapb.Peer    `json:"pending_peers,omitempty"`
+		WrittenBytes    uint64            `json:"written_bytes,omitempty"`
+		ReadBytes       uint64            `json:"read_bytes,omitempty"`
+		ApproximateSize int64             `json:"approximate_size,omitempty"`
+	}
+	```
+
+	C:\Users\李晓桐\pd\server\cache.go
+	```
+		type clusterInfo struct {
+		sync.RWMutex
+		*schedule.BasicCluster
+
+		id              core.IDAllocator
+		kv              *core.KV
+		meta            *metapb.Cluster
+		activeRegions   int
+		opt             *scheduleOption
+		regionStats     *regionStatistics
+		labelLevelStats *labelLevelStatistics
+	}
+	```	
+	对于clusterInfo有许多函数设定
+	```
+	// GetLeaderStore returns all stores that contains the region's leader peer.
+	func (c *clusterInfo) GetLeaderStore(region *core.RegionInfo) *core.StoreInfo {
+		c.RLock()
+		defer c.RUnlock()
+		return c.Stores.GetStore(region.Leader.GetStoreId())
+	}
+	```
+
+**有关心跳**
+
+	C:\Users\李晓桐\pd\pkg\faketikv\client.go
+

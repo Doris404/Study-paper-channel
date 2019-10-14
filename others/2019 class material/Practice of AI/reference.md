@@ -1,12 +1,12 @@
 ## Reference
-> Óë AI and ML Ò»ÖÂ£¬½øĞĞ¸ü¸ÄÖ»ÔÚAI and ML ½øĞĞ
+> ä¸ AI and ML ä¸€è‡´ï¼Œè¿›è¡Œæ›´æ”¹åªåœ¨AI and ML è¿›è¡Œ
 
-* ÖÜÖ¾»ª£¬»úÆ÷Ñ§Ï°£¬Çå»ª´óÑ§³ö°æÉç
-* 2016. 2. Aurelien Geron, Hands-On Machine Learning with Scikit-Learn & TensorFlow, O¡¯Reilly Media 
+* å‘¨å¿—åï¼Œæœºå™¨å­¦ä¹ ï¼Œæ¸…åå¤§å­¦å‡ºç‰ˆç¤¾
+* 2016. 2. Aurelien Geron, Hands-On Machine Learning with Scikit-Learn & TensorFlow, Oâ€™Reilly Media 
 	* https://github.com/ageron/handson-ml
 	* https://learning.oreilly.com/library/view/hands-on-machine-learning/9781492032632/
 * 2017. 3. Sebastian Raschka, Vahid Mirjalili, Python Machine Learning (2nd edition), Packt Publishing
-* 2017. 4. Andreas C. Mueller, Sarah Guido, Introduction to Machine Learning with Python, O¡¯Reilly Media
+* 2017. 4. Andreas C. Mueller, Sarah Guido, Introduction to Machine Learning with Python, Oâ€™Reilly Media
 	* https://learning.oreilly.com/library/view/introduction-to-machine/9781449369880/
 * 2016. 5. Ian Goodfellow, Yoshua Bengio, Aaron Courville, Deep Learning, MIT Press
 	* http://www.deeplearningbook.org/

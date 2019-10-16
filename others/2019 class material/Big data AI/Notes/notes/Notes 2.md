@@ -1,4 +1,4 @@
-## Notes 2
+## Notes 2 Apriori算法：寻找频繁项集模式 GSP算法：寻找频繁序列模式
 
 > DYNAMO：亚马逊数据库技术 k-v
 > redis: 可持久化（备份到硬盘） 高性能kv Nosql 内存数据库 k-v

@@ -1,0 +1,91 @@
+func (l *balanceLeaderScheduler) Schedule(cluster schedule.Cluster, opInfluence schedule.OpInfluence) []*schedule.Operator {
+
+	schedulerCounter.WithLabelValues(l.GetName(), "schedule").Inc()
+
+
+
+	stores := cluster.GetStores()
+
+
+
+	// source/target is the store with highest/lowest leader score in the list that
+
+	// can be selected as balance source/target.
+
+	source := l.selector.SelectSource(cluster, stores)
+
+	target := l.selector.SelectTarget(cluster, stores)
+
+
+
+	// No store can be selected as source or target.
+
+	if source == nil || target == nil {
+
+		schedulerCounter.WithLabelValues(l.GetName(), "no_store").Inc()
+
+		// When the cluster is balanced, all stores will be added to the cache once
+
+		// all of them have been selected. This will cause the scheduler to not adapt
+
+		// to sudden change of a store's leader. Here we clear the taint cache and
+
+		// re-iterate.
+
+		l.taintStores.Clear()
+
+		return nil
+
+	}
+
+
+
+	log.Debugf("[%s] store%d has the max leader score, store%d has the min leader score", l.GetName(), source.GetId(), target.GetId())
+
+	sourceStoreLabel := strconv.FormatUint(source.GetId(), 10)
+
+	targetStoreLabel := strconv.FormatUint(target.GetId(), 10)
+
+	balanceLeaderCounter.WithLabelValues("high_score", sourceStoreLabel).Inc()
+
+	balanceLeaderCounter.WithLabelValues("low_score", targetStoreLabel).Inc()
+
+
+
+	for i := 0; i < balanceLeaderRetryLimit; i++ {
+
+		if op := l.transferLeaderOut(source, cluster, opInfluence); op != nil {
+
+			balanceLeaderCounter.WithLabelValues("transfer_out", sourceStoreLabel).Inc()
+
+			return op
+
+		}
+
+		if op := l.transferLeaderIn(target, cluster, opInfluence); op != nil {
+
+			balanceLeaderCounter.WithLabelValues("transfer_in", targetStoreLabel).Inc()
+
+			return op
+
+		}
+
+	}
+
+
+
+	// If no operator can be created for the selected stores, ignore them for a while.
+
+	log.Debugf("[%s] no operator created for selected store%d and store%d", l.GetName(), source.GetId(), target.GetId())
+
+	balanceLeaderCounter.WithLabelValues("add_taint", strconv.FormatUint(source.GetId(), 10)).Inc()
+
+	l.taintStores.Put(source.GetId())
+
+	balanceLeaderCounter.WithLabelValues("add_taint", strconv.FormatUint(target.GetId(), 10)).Inc()
+
+	l.taintStores.Put(target.GetId())
+
+	return nil
+
+}

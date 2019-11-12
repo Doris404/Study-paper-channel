@@ -10,7 +10,8 @@
 ```
 ssh root@202.112.113.25
 ```
-4. 开启一个pd，具体方法是：先进入wyy/gopath/src/github.com/pingcap/pd,然后输入```make```
+4. 开启一个pd，具体方法是：先进入wyy/gopath/src/github.com/pingcap/pd,然后输入```make```编译pd,然后再运行sh -x run.sh运行一个pd
+
 
 5. 开启三个TiKV,具体方法是：点开一个页面，进入```tikv```,输入```sh -x run.sh```,进入```tikv1```,输入```sh -x run.sh```,进入```tikv2```,输入```sh -x run.sh```
 
